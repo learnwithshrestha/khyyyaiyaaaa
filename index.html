@@ -126,18 +126,25 @@ function toggleMusic(){
 }
 
 // Auto play when page loads
-window.addEventListener('load', function(){
-  const music = document.getElementById('bg-music');
+ const music = document.getElementById("bg-music");
+let musicStarted = false;
+
+function startMusic() {
+  if (musicStarted) return;
+
+  musicStarted = true;
   music.currentTime = 7;
-  music.play().catch(()=>{
-    // browser blocked autoplay - play on first click instead
-    document.addEventListener('click', function(){
-      music.currentTime = 7;
-      music.play();
-      document.getElementById('music-btn').textContent = '⏸ Pause';
-    }, {once: true});
+
+  music.play().catch(err => {
+    console.log("Music blocked:", err);
+    musicStarted = false; // allow retry if needed
   });
-});
+
+  document.removeEventListener("pointerdown", startMusic);
+}
+
+// works on mobile + desktop
+document.addEventListener("pointerdown", startMusic);       
 
   const msgs=[
     "Khyy khyy... you made it through the day!\nProud of you 🐶💜",
