@@ -107,115 +107,99 @@
   </div>
 </div>
 
-
-<audio id="bg-music" loop>
+<audio id="bg-music" loop preload="auto">
   <source src="mayalu.mp4" type="audio/mpeg">
 </audio>
 
 <script>
-function toggleMusic(){
-  const music = document.getElementById('bg-music');
-  const btn = document.getElementById('music-btn');
-  if(music.paused){
-    music.play();
-    btn.textContent = '⏸ Pause';
-  } else {
-    music.pause();
-    btn.textContent = '▶ Play';
+  const music = document.getElementById("bg-music");
+  let musicStarted = false;
+
+  function startMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => { music.currentTime = 7; })
+        .catch(() => { musicStarted = false; });
+    }
   }
-}
 
-// Auto play when page loads
-const music = document.getElementById("bg-music");
-let musicStarted = false;
-
-function startMusic() {
-  if (musicStarted) return;
-
-  musicStarted = true;
-  music.currentTime = 7;
-
-  music.play().catch(err => {
-    console.log("Music blocked:", err);
-    musicStarted = false;
+  ["pointerdown", "touchstart", "click"].forEach(function(evt) {
+    document.addEventListener(evt, startMusic, { once: true, passive: true });
   });
 
-  document.removeEventListener("pointerdown", startMusic);
-}
-
-document.addEventListener("pointerdown", startMusic);      
-
-  const msgs=[
+  const msgs = [
     "Khyy khyy... you made it through the day!\nProud of you 🐶💜",
     "You coming home like:\nI deserve peace, silence, and zero assignments 😤😂",
     "The shyest, chocolatiest, most adorable\nperson just came home 🙈🍫",
     "Your dog energy is unmatched.\nWoof woof! 🐶😂",
-    "Aiyaaaa college said ‘study’\nKhyy said ‘I’ll see’ 😂😂",
+    "Aiyaaaa college said 'study'\nKhyy said 'I'll see' 😂😂",
     "Aiyaaaa… no one understands you in college\nLucky: woof woof I understand everything 🐶😂",
-    "College said ‘focus’\nKhyy said ‘I’ll try tomorrow’ 😂📚",
+    "College said 'focus'\nKhyy said 'I'll try tomorrow' 😂📚",
     "Aiyaaaa stop being so cute\nit's literally illegal 😭💜",
     "College said 'suffer'.\nYou said 'khyy fine' and survived 😎",
     "Lucky is waiting for you.\nYOU ARE FREE! 🐶🍫🎉",
-    "Aiyaaaa who is this cute person\ncoming home to Lucky’s woof woof welcome 🐶🙈",
+    "Aiyaaaa who is this cute person\ncoming home to Lucky's woof woof welcome 🐶🙈",
     "Khyy... rest now.\nYou deserve ALL the chocolates today 🍫🍫🍫",
   ];
-  const reactions=["😂💜","🐶🍫","Aiyaaaa!!","Khyy 😭","🙈✨","HAHA 😂","💜💜","🍫🍫🍫"];
-  let msgIndex=Math.floor(Math.random()*msgs.length);
+  const reactions = ["😂💜","🐶🍫","Aiyaaaa!!","Khyy 😭","🙈✨","HAHA 😂","💜💜","🍫🍫🍫"];
+  let msgIndex = Math.floor(Math.random() * msgs.length);
 
-  function newMsg(){
-    msgIndex=(msgIndex+1)%msgs.length;
-    document.getElementById('msg-box').innerHTML=msgs[msgIndex].replace(/\n/g,'<br>');
-    const r=reactions[Math.floor(Math.random()*reactions.length)];
-    const el=document.getElementById('reaction');
-    el.textContent=r;
-    el.style.animation='none';
+  function newMsg() {
+    msgIndex = (msgIndex + 1) % msgs.length;
+    document.getElementById('msg-box').innerHTML = msgs[msgIndex].replace(/\n/g,'<br>');
+    const r = reactions[Math.floor(Math.random() * reactions.length)];
+    const el = document.getElementById('reaction');
+    el.textContent = r;
+    el.style.animation = 'none';
     void el.offsetWidth;
-    el.style.animation='popIn 0.4s ease';
+    el.style.animation = 'popIn 0.4s ease';
   }
 
-  function aiyaaaa(){
+  function aiyaaaa() {
     document.getElementById('aiyaaaa-popup').classList.add('show');
   }
-  function closePopup(){
+  function closePopup() {
     document.getElementById('aiyaaaa-popup').classList.remove('show');
   }
 
-  function chocolateRain(){
-    const rain=document.getElementById('chocolate-rain');
-    const chocs=['🍫','🍬','🍭','🧁','🍩','🍪','🍰'];
-    for(let i=0;i<30;i++){
-      setTimeout(()=>{
-        const el=document.createElement('div');
-        el.className='choc-drop';
-        el.textContent=chocs[Math.floor(Math.random()*chocs.length)];
-        el.style.left=Math.random()*100+'%';
-        el.style.animationDuration=(1.5+Math.random()*2)+'s';
-        el.style.animationDelay=Math.random()*1+'s';
+  function chocolateRain() {
+    const rain = document.getElementById('chocolate-rain');
+    const chocs = ['🍫','🍬','🍭','🧁','🍩','🍪','🍰'];
+    for (let i = 0; i < 30; i++) {
+      setTimeout(function() {
+        const el = document.createElement('div');
+        el.className = 'choc-drop';
+        el.textContent = chocs[Math.floor(Math.random() * chocs.length)];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+        el.style.animationDelay = Math.random() * 1 + 's';
         rain.appendChild(el);
-        setTimeout(()=>el.remove(),4000);
-      },i*80);
+        setTimeout(function() { el.remove(); }, 4000);
+      }, i * 80);
     }
-    document.getElementById('reaction').textContent='🍫🍫🍫 CHOCOLATE RAIN!! 🍫🍫🍫';
+    document.getElementById('reaction').textContent = '🍫🍫🍫 CHOCOLATE RAIN!! 🍫🍫🍫';
   }
 
-  function dogClick(){
-    const dogs=['🐶 WOOF WOOF!','Aiyaaaa😭🐶','Khyy so cute!! 🐶💜','🐶 = happiness 💜',];
-    document.getElementById('reaction').textContent=dogs[Math.floor(Math.random()*dogs.length)];
-    document.getElementById('main-emoji').textContent=['🐶','🐕','🦮','🐩'][Math.floor(Math.random()*4)];
+  function dogClick() {
+    const dogs = ['🐶 WOOF WOOF!','Aiyaaaa😭🐶','Khyy so cute!! 🐶💜','🐶 = happiness 💜'];
+    document.getElementById('reaction').textContent = dogs[Math.floor(Math.random() * dogs.length)];
+    document.getElementById('main-emoji').textContent = ['🐶','🐕','🦮','🐩'][Math.floor(Math.random() * 4)];
   }
 
-  const floaters=document.getElementById('floaters');
-  const floatEmojis=['🍫','🐶','💜','✨','🌸','🙈','⭐'];
-  for(let i=0;i<12;i++){
-    const el=document.createElement('div');
-    el.className='floating';
-    el.textContent=floatEmojis[Math.floor(Math.random()*floatEmojis.length)];
-    el.style.left=Math.random()*100+'%';
-    el.style.animationDuration=(6+Math.random()*8)+'s';
-    el.style.animationDelay=Math.random()*8+'s';
+  const floaters = document.getElementById('floaters');
+  const floatEmojis = ['🍫','🐶','💜','✨','🌸','🙈','⭐'];
+  for (let i = 0; i < 12; i++) {
+    const el = document.createElement('div');
+    el.className = 'floating';
+    el.textContent = floatEmojis[Math.floor(Math.random() * floatEmojis.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.animationDuration = (6 + Math.random() * 8) + 's';
+    el.style.animationDelay = Math.random() * 8 + 's';
     floaters.appendChild(el);
   }
-  
 </script>
 
 </body>
