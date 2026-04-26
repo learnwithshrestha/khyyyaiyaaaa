@@ -108,7 +108,7 @@
 </div>
 
 
-<audio id="bg-music" loop autoplay>
+<audio id="bg-music" loop>
   <source src="mayalu.mp4" type="audio/mpeg">
 </audio>
 
@@ -126,7 +126,7 @@ function toggleMusic(){
 }
 
 // Auto play when page loads
- const music = document.getElementById("bg-music");
+const music = document.getElementById("bg-music");
 let musicStarted = false;
 
 function startMusic() {
@@ -137,14 +137,13 @@ function startMusic() {
 
   music.play().catch(err => {
     console.log("Music blocked:", err);
-    musicStarted = false; // allow retry if needed
+    musicStarted = false;
   });
 
   document.removeEventListener("pointerdown", startMusic);
 }
 
-// works on mobile + desktop
-document.addEventListener("pointerdown", startMusic);       
+document.addEventListener("pointerdown", startMusic);      
 
   const msgs=[
     "Khyy khyy... you made it through the day!\nProud of you 🐶💜",
