@@ -9,27 +9,26 @@
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Nunito',sans-serif;}
 
-    #splash{
+    #startUI{
       position:fixed;top:0;left:0;width:100%;height:100%;
       background:linear-gradient(135deg,#fff0f6,#fdf4ff,#f0f9ff);
       z-index:9999;display:flex;flex-direction:column;
       align-items:center;justify-content:center;gap:18px;
+      font-family:'Nunito',sans-serif;
     }
-    #splash .s-emoji{font-size:80px;animation:wiggle 1s infinite;}
-    #splash h2{font-size:26px;font-weight:900;color:#5b21b6;text-align:center;padding:0 20px;}
-    #splash p{font-size:14px;color:#7c3aed;font-weight:700;text-align:center;}
-    #splash-btn{
+    #startUI .s-emoji{font-size:80px;animation:wiggle 1s infinite;}
+    #startUI h1{font-size:26px;font-weight:900;color:#5b21b6;text-align:center;padding:0 20px;}
+    #startUI p{font-size:14px;color:#7c3aed;font-weight:700;text-align:center;}
+    #startUI button{
       padding:16px 40px;border-radius:50px;border:none;
       background:linear-gradient(135deg,#c084fc,#7c3aed);
       color:white;font-family:'Nunito',sans-serif;
       font-size:18px;font-weight:900;cursor:pointer;
-      box-shadow:0 4px 20px rgba(124,58,237,0.4);
     }
 
     #app{
       min-height:100vh;
       background:linear-gradient(135deg,#fff0f6,#fdf4ff,#f0f9ff);
-      font-family:'Nunito',sans-serif;
       display:flex;flex-direction:column;
       align-items:center;justify-content:center;
       padding:20px;position:relative;overflow:hidden;
@@ -91,15 +90,15 @@
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
-<div id="splash">
+<audio id="bgMusic" src="mayalu.mp4"></audio>
+
+<div id="startUI">
   <div class="s-emoji">🐶</div>
-  <h2>Hallo Ashlesha! 💜</h2>
-  <p>College is done. Tap to enter! 😎</p>
-  <button id="splash-btn" onclick="startApp()">Enter 💜</button>
+  <h1>Hallo Ashlesha! 💜</h1>
+  <p>Clg bata thakera aayo hola😎</p>
+  <button onclick="startShow()">Enter 💜</button>
 </div>
 
-<!-- MAIN APP -->
 <div id="app" style="display:none;">
   <div id="floaters"></div>
   <div id="chocolate-rain"></div>
@@ -135,20 +134,16 @@
   </div>
 </div>
 
-<audio id="bg-music" loop preload="auto">
-  <source src="mayalu.mp4" type="audio/mpeg">
-</audio>
-
 <script>
-  function startApp() {
-    document.getElementById('splash').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    document.getElementById('app').style.flexDirection = 'column';
-    document.getElementById('app').style.minHeight = '100vh';
+  function startShow() {
+    document.getElementById("startUI").style.display = "none";
+    document.getElementById("app").style.display = "flex";
+    document.getElementById("app").style.flexDirection = "column";
+    document.getElementById("app").style.minHeight = "100vh";
 
-    var music = document.getElementById('bg-music');
+    let music = document.getElementById("bgMusic");
     music.currentTime = 7;
-    music.play().catch(function(e){ console.log('Music error:', e); });
+    music.play();
 
     initFloaters();
   }
