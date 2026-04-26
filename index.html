@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hallo Ashlesha! 💜</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;}
+    #app{
+      min-height:100vh;
+      background:linear-gradient(135deg,#fff0f6,#fdf4ff,#f0f9ff);
+      font-family:'Nunito',sans-serif;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      padding:20px;position:relative;overflow:hidden;
+    }
+    .floating{position:absolute;font-size:24px;animation:floatUp linear infinite;pointer-events:none;opacity:0.5;}
+    @keyframes floatUp{0%{transform:translateY(110vh) rotate(0deg);opacity:0.6;}100%{transform:translateY(-20vh) rotate(360deg);opacity:0;}}
+    .card{
+      background:white;border-radius:32px;
+      padding:36px 32px;max-width:480px;width:100%;
+      text-align:center;
+      box-shadow:0 8px 40px rgba(192,132,252,0.2);
+      position:relative;z-index:10;
+    }
+    h1{font-size:26px;font-weight:900;color:#5b21b6;margin-bottom:6px;}
+    .sub{font-size:13px;color:#7c3aed;margin-bottom:24px;letter-spacing:1px;font-weight:700;}
+    .big-emoji{font-size:72px;margin:10px 0;animation:wiggle 1s infinite;}
+    @keyframes wiggle{0%,100%{transform:rotate(-8deg);}50%{transform:rotate(8deg);}}
+    .msg-box{
+      background:linear-gradient(135deg,#7c3aed,#be185d);
+      border-radius:20px;padding:22px;margin:16px 0;
+      font-size:18px;font-weight:900;color:#ffffff;
+      line-height:1.8;min-height:80px;
+      display:flex;align-items:center;justify-content:center;
+      transition:all 0.3s;
+      text-shadow:0 1px 4px rgba(0,0,0,0.3);
+    }
+    .btn{
+      display:inline-block;margin:8px 6px;
+      padding:14px 22px;border-radius:50px;border:none;
+      font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;
+      cursor:pointer;transition:transform 0.15s;
+    }
+    .btn:hover{transform:scale(1.08);}
+    .btn:active{transform:scale(0.95);}
+    .btn-purple{background:linear-gradient(135deg,#c084fc,#7c3aed);color:white;}
+    .btn-pink{background:linear-gradient(135deg,#f472b6,#ec4899);color:white;}
+    .btn-choc{background:linear-gradient(135deg,#92400e,#78350f);color:#fde68a;}
+    .reaction{font-size:24px;margin-top:12px;min-height:36px;animation:popIn 0.4s ease;font-weight:900;color:#5b21b6;}
+    @keyframes popIn{0%{transform:scale(0);}60%{transform:scale(1.3);}100%{transform:scale(1);}}
+    #chocolate-rain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+    .choc-drop{position:absolute;font-size:28px;animation:fallDown linear forwards;}
+    @keyframes fallDown{0%{transform:translateY(-50px) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0.8;}}
+    #aiyaaaa-popup{
+      display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.5);z-index:500;
+      align-items:center;justify-content:center;
+    }
+    #aiyaaaa-popup.show{display:flex;}
+    .popup-inner{
+      background:white;border-radius:32px;padding:40px;text-align:center;
+      animation:popIn 0.5s ease;max-width:320px;
+    }
+    .popup-inner h2{font-size:32px;font-weight:900;color:#5b21b6;margin-bottom:10px;}
+    .popup-inner p{font-size:16px;color:#4c1d95;line-height:1.6;font-weight:700;}
+    .close-btn{margin-top:20px;padding:12px 28px;background:#7c3aed;color:white;border:none;border-radius:50px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
+    .dog-section{margin-top:16px;font-size:48px;cursor:pointer;animation:bounce 1s infinite alternate;}
+    @keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-12px);}}
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div id="floaters"></div>
+  <div id="chocolate-rain"></div>
+
+  <div id="aiyaaaa-popup">
+    <div class="popup-inner">
+      <div style="font-size:64px;">🙈</div>
+      <h2>AIYAAAA! 😭</h2>
+      <p>Ashlesha caught being cute again!<br>Khyy khyy khyy... 😂<br><br>You literally cannot stop being adorable even when you try! 🐶💜</p>
+      <button class="close-btn" onclick="closePopup()">Okay fine 😤</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="big-emoji" id="main-emoji">🐶</div>
+    <h1>Hallo Ashlesha👋</h1>
+    <p class="sub">College is done. Chill mode: ON 😎</p>
+
+    <div class="msg-box" id="msg-box">
+      You survived another day of college!<br>Aiyaaaa that must've been tough 😂🎉
+    </div>
+
+    <div>
+      <button class="btn btn-purple" onclick="newMsg()">😂 Make me laugh!</button>
+      <button class="btn btn-pink" onclick="aiyaaaa()">😭 AIYAAAA!</button>
+      <button class="btn btn-choc" onclick="chocolateRain()">🍫 Chocolate!</button>
+    </div>
+
+    <div class="dog-section" onclick="dogClick()">🐶</div>
+    <p style="font-size:11px;color:#7c3aed;margin-top:4px;font-weight:700;">↑ click the dog!</p>
+
+    <div class="reaction" id="reaction"></div>
+  </div>
+</div>
+
+
+<audio id="bg-music" loop autoplay>
+  <source src="mayalu.mp4" type="audio/mpeg">
+</audio>
+
+<script>
+function toggleMusic(){
+  const music = document.getElementById('bg-music');
+  const btn = document.getElementById('music-btn');
+  if(music.paused){
+    music.play();
+    btn.textContent = '⏸ Pause';
+  } else {
+    music.pause();
+    btn.textContent = '▶ Play';
+  }
+}
+
+// Auto play when page loads
+window.addEventListener('load', function(){
+  const music = document.getElementById('bg-music');
+  music.currentTime = 7;
+  music.play().catch(()=>{
+    // browser blocked autoplay - play on first click instead
+    document.addEventListener('click', function(){
+      music.currentTime = 7;
+      music.play();
+      document.getElementById('music-btn').textContent = '⏸ Pause';
+    }, {once: true});
+  });
+});
+
+  const msgs=[
+    "Khyy khyy... you made it through the day!\nProud of you 🐶💜",
+    "You coming home like:\nI deserve peace, silence, and zero assignments 😤😂",
+    "The shyest, chocolatiest, most adorable\nperson just came home 🙈🍫",
+    "Your dog energy is unmatched.\nWoof woof! 🐶😂",
+    "Aiyaaaa college said ‘study’\nKhyy said ‘I’ll see’ 😂😂",
+    "Aiyaaaa… no one understands you in college\nLucky: woof woof I understand everything 🐶😂",
+    "College said ‘focus’\nKhyy said ‘I’ll try tomorrow’ 😂📚",
+    "Aiyaaaa stop being so cute\nit's literally illegal 😭💜",
+    "College said 'suffer'.\nYou said 'khyy fine' and survived 😎",
+    "Lucky is waiting for you.\nYOU ARE FREE! 🐶🍫🎉",
+    "Aiyaaaa who is this cute person\ncoming home to Lucky’s woof woof welcome 🐶🙈",
+    "Khyy... rest now.\nYou deserve ALL the chocolates today 🍫🍫🍫",
+  ];
+  const reactions=["😂💜","🐶🍫","Aiyaaaa!!","Khyy 😭","🙈✨","HAHA 😂","💜💜","🍫🍫🍫"];
+  let msgIndex=Math.floor(Math.random()*msgs.length);
+
+  function newMsg(){
+    msgIndex=(msgIndex+1)%msgs.length;
+    document.getElementById('msg-box').innerHTML=msgs[msgIndex].replace(/\n/g,'<br>');
+    const r=reactions[Math.floor(Math.random()*reactions.length)];
+    const el=document.getElementById('reaction');
+    el.textContent=r;
+    el.style.animation='none';
+    void el.offsetWidth;
+    el.style.animation='popIn 0.4s ease';
+  }
+
+  function aiyaaaa(){
+    document.getElementById('aiyaaaa-popup').classList.add('show');
+  }
+  function closePopup(){
+    document.getElementById('aiyaaaa-popup').classList.remove('show');
+  }
+
+  function chocolateRain(){
+    const rain=document.getElementById('chocolate-rain');
+    const chocs=['🍫','🍬','🍭','🧁','🍩','🍪','🍰'];
+    for(let i=0;i<30;i++){
+      setTimeout(()=>{
+        const el=document.createElement('div');
+        el.className='choc-drop';
+        el.textContent=chocs[Math.floor(Math.random()*chocs.length)];
+        el.style.left=Math.random()*100+'%';
+        el.style.animationDuration=(1.5+Math.random()*2)+'s';
+        el.style.animationDelay=Math.random()*1+'s';
+        rain.appendChild(el);
+        setTimeout(()=>el.remove(),4000);
+      },i*80);
+    }
+    document.getElementById('reaction').textContent='🍫🍫🍫 CHOCOLATE RAIN!! 🍫🍫🍫';
+  }
+
+  function dogClick(){
+    const dogs=['🐶 WOOF WOOF!','Aiyaaaa😭🐶','Khyy so cute!! 🐶💜','🐶 = happiness 💜',];
+    document.getElementById('reaction').textContent=dogs[Math.floor(Math.random()*dogs.length)];
+    document.getElementById('main-emoji').textContent=['🐶','🐕','🦮','🐩'][Math.floor(Math.random()*4)];
+  }
+
+  const floaters=document.getElementById('floaters');
+  const floatEmojis=['🍫','🐶','💜','✨','🌸','🙈','⭐'];
+  for(let i=0;i<12;i++){
+    const el=document.createElement('div');
+    el.className='floating';
+    el.textContent=floatEmojis[Math.floor(Math.random()*floatEmojis.length)];
+    el.style.left=Math.random()*100+'%';
+    el.style.animationDuration=(6+Math.random()*8)+'s';
+    el.style.animationDelay=Math.random()*8+'s';
+    floaters.appendChild(el);
+  }
+  
+</script>
+
+</body>
+</html>
